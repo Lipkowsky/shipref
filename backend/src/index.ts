@@ -11,13 +11,14 @@ import cardEventRoute from "./routes/cardEvent.route";
 
 const app = express();
 const port = process.env.PORT || 8003;
-app.use(clerkMiddleware())
 app.use(
   cors({
     origin: ["http://localhost:5173", "https://shipref.vercel.app"],
     credentials: true,
   }),
 );
+app.use(clerkMiddleware())
+
 app.use(express.json());
 
 app.use("/api", webhookRoute);
