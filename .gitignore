@@ -1,0 +1,49 @@
+# ==========================================
+# 1. PLIKI ŚRODOWISKOWE (NAJWAŻNIEJSZE!)
+# ==========================================
+# Ignoruje pliki .env w obu folderach oraz w głównym katalogu
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+**/ .env
+**/ .env.*
+
+# ==========================================
+# 2. ZALEŻNOŚCI (NODE_MODULES)
+# ==========================================
+# Ignoruje ciężkie foldery z paczkami w backendzie i frontendzie
+node_modules/
+**/node_modules/
+
+# ==========================================
+# 3. PRODUKCJA / BUILD (FRONTEND)
+# ==========================================
+# Ignoruje foldery generowane podczas budowania aplikacji React
+frontend/build/
+frontend/dist/
+frontend/out/
+
+# ==========================================
+# 4. LOGI I BŁĘDY
+# ==========================================
+# Ignoruje pliki z raportami o błędach npm/yarn
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ==========================================
+# 5. PLIKI SYSTEMOWE I IDE
+# ==========================================
+# Ignoruje pliki konfiguracyjne systemów operacyjnych i edytorów
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
