@@ -3,7 +3,7 @@ import type { RivalryPopulated } from "../types/types";
 import { useApi } from "../api/useApi";
 
 export function useRivalries() {
-  const { apiFetch } = useApi(); // 👈 TU
+  const { apiFetch } = useApi(); 
 
   const [rivalries, setRivalries] = useState<RivalryPopulated[]>([]);
   const [loading, setLoading] = useState(true);
@@ -12,9 +12,6 @@ export function useRivalries() {
   const getRivalries = async () => {
     const res = await apiFetch(
       `${import.meta.env.VITE_API_BASE_URL}/api/rivalry/rivalries`,
-      {
-        credentials: "include",
-      }
     );
 
     if (!res.ok) {
