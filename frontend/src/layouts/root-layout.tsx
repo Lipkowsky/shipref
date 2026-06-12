@@ -41,7 +41,7 @@ export default function RootLayout() {
                   to="/sign-in"
                   className="rounded-lg bg-black px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-800 active:scale-95"
                 >
-                  Sign In
+                  Zaloguj się
                 </Link>
               </SignedOut>
             </div>
