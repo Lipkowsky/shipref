@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useApi } from "../api/useApi";
 type Props = {
   onSuccess: () => Promise<void>;
 };
@@ -8,6 +9,8 @@ export default function ConnectRivalryBox({ onSuccess }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const { apiFetch } = useApi(); 
+  
 
   const handleConnect = async () => {
     setLoading(true);
@@ -15,14 +18,10 @@ export default function ConnectRivalryBox({ onSuccess }: Props) {
     setSuccess(false);
 
     try {
-      const res = await fetch(
+      const res = await apiFetch(
         `${import.meta.env.VITE_API_BASE_URL}/api/rivalry/connect`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
           body: JSON.stringify({ playerId }),
         },
       );

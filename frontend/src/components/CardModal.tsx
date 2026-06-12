@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useApi } from "../api/useApi";
 
 type Props = {
   open: boolean;
@@ -8,33 +9,6 @@ type Props = {
   onSuccess?: () => void;
 };
 
-const giveCard = async (
-  type: "yellow" | "red",
-  rivalryId: string,
-  reason: string,
-) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_API_BASE_URL}/api/cards/${type}`,
-    {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        rivalryId,
-        reason,
-      }),
-    },
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to give card");
-  }
-
-  return res.json();
-};
-
 export const CardModal = ({
   open,
   onClose,
@@ -42,16 +16,37 @@ export const CardModal = ({
   type,
   onSuccess,
 }: Props) => {
+  const { apiFetch } = useApi(); 
+
   const [reason, setReason] = useState("");
   const [loading, setLoading] = useState(false);
 
   if (!open) return null;
 
+  const giveCard = async () => {
+    const res = await apiFetch(
+      `${import.meta.env.VITE_API_BASE_URL}/api/cards/${type}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          rivalryId,
+          reason,
+        }),
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to give card");
+    }
+
+    return res.json();
+  };
+
   const handleSubmit = async () => {
     try {
       setLoading(true);
 
-      await giveCard(type, rivalryId, reason);
+      await giveCard();
 
       setReason("");
       onClose();
@@ -77,7 +72,10 @@ export const CardModal = ({
           placeholder="Powód kartki..."
           className="w-full p-2 rounded bg-gray-800 text-white border border-gray-700"
         />
-        <div className="text-xs text-gray-400 mt-1">{reason.length}/100</div>
+
+        <div className="text-xs text-gray-400 mt-1">
+          {reason.length}/100
+        </div>
 
         <div className="flex justify-end gap-2 mt-3">
           <button onClick={onClose} className="px-3 py-1 text-sm text-gray-300">

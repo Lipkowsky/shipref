@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
 import type { User } from "../types/types";
 import { useAuth } from "@clerk/clerk-react";
+import { useApi } from "../api/useApi";
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
+  const { apiFetch } = useApi(); 
   const { isSignedIn, getToken } = useAuth();
 
   const [user, setUser] = useState<User | null>(null);
@@ -23,11 +25,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         template: "jwt-template-name",
       });
       console.log("Custom Token:", token);
-      const res = await fetch(
+      const res = await apiFetch(
         `${import.meta.env.VITE_API_BASE_URL}/api/user/me`,
-        {
-          credentials: "include",
-        },
+        
       );
 
       const data = await res.json();

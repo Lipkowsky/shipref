@@ -17,9 +17,10 @@ app.use(
     credentials: true,
   }),
 );
+app.use(express.json());
 app.use(clerkMiddleware())
 
-app.use(express.json());
+
 
 app.use("/api", webhookRoute);
 app.use("/api/rivalry", rivalryRoute);
