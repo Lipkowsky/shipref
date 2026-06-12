@@ -10,6 +10,7 @@ import userRoute from "./routes/user.route";
 import cardEventRoute from "./routes/cardEvent.route";
 
 const app = express();
+const port = process.env.PORT || 8003;
 app.use(clerkMiddleware())
 app.use(
   cors({
@@ -54,8 +55,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 const start = async () => {
   try {
    await connectDB();
-    app.listen(8003, () => {
-      console.log("Backend is running on port 8003");
+    app.listen(port, () => {
+      console.log(`Backend is running on port ${port}`);
     })
   } catch (error) {
     console.error("Error starting Backend Service:", error);
