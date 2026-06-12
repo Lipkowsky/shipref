@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router";
+import { Navigate } from "react-router";
 import { useAuth } from "@clerk/clerk-react";
 
 export default function IndexPage() {
